@@ -30,6 +30,8 @@ const createNumberButton = ( number ) => {
     return el;
 }
 
+const stringToMath = str => Function([], `'use strict'; return (${str})`)();
+
 const addNumberButtons = () => {
     for(let i = 1; i <= 11; i++){
         if(i == 10) numbersContainer.appendChild(createNumberButton(0));
@@ -49,26 +51,7 @@ const calculate = () => {
 
     const char = /[-,+, x, ÷]/.exec(value)[0];
 
-    let [ firstNumber, secondNumber ] = value.split(char);
-    firstNumber = parseFloat(firstNumber);
-    secondNumber = parseFloat(secondNumber);
-
-    switch(char){
-        case "+":
-            value = firstNumber + secondNumber;
-            break;
-        case "-":
-            value = firstNumber - secondNumber;
-            break;
-        case "x":
-            value = firstNumber * secondNumber;
-            break;
-        case "÷":
-            value = firstNumber / secondNumber;
-            break;
-    }
-
-    value = value.toString();
+    value = stringToMath(value);
     resultElement.innerHTML = value;
     isCharPlaced = false;
 }
