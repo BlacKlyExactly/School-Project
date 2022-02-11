@@ -49,9 +49,8 @@ const calculate = () => {
     if(!(/[-,+, x, ÷]/.exec(value)))
         return;
 
-    const char = /[-,+, x, ÷]/.exec(value)[0];
-
-    value = stringToMath(value);
+    const newValue = value.replace(/x/g, "*").replace(/÷/g, "/");
+    value = stringToMath(newValue).toString();
     resultElement.innerHTML = value;
     isCharPlaced = false;
 }
